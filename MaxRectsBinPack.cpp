@@ -109,6 +109,20 @@ void MaxRectsBinPack::Insert(std::vector<RectSize> &rects, std::vector<Rect> &ds
 	}
 }
 
+bool MaxRectsBinPack::Insert(const Rect &rect)
+{
+	if (usedRectangles.size() == 0)
+	{
+		if ((rect.x + rect.width > binWidth && rect.y + rect.height > binHeight) || (rect.x + rect.width > binHeight && rect.y + rect.height > binWidth))
+			return false;
+
+		this->PlaceRect(rect);
+
+		return true;
+	}
+	return false;
+}
+
 void MaxRectsBinPack::PlaceRect(const Rect &node)
 {
 	for(size_t i = 0; i < freeRectangles.size();)

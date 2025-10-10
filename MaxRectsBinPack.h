@@ -36,7 +36,7 @@ public:
 		RectBestLongSideFit, ///< -BLSF: Positions the rectangle against the long side of a free rectangle into which it fits the best.
 		RectBestAreaFit, ///< -BAF: Positions the rectangle into the smallest free rect into which it fits.
 		RectBottomLeftRule, ///< -BL: Does the Tetris placement.
-		RectContactPointRule ///< -CP: Choosest the placement where the rectangle touches other rects as much as possible.
+		RectContactPointRule, ///< -CP: Choosest the placement where the rectangle touches other rects as much as possible.
 	};
 
 	/// Inserts the given list of rectangles in an offline/batch mode, possibly rotated.
@@ -47,6 +47,13 @@ public:
 
 	/// Inserts a single rectangle into the bin, possibly rotated.
 	Rect Insert(int width, int height, FreeRectChoiceHeuristic method);
+
+	/// Inserts a single rectangle into the bin at the desire position.
+	/// This usefull to create an hile in the bin
+	/// You can't excute this after the start off the packing
+	/// @param rect The rectangle to insert.
+	/// @return True if rectangle was insert
+	bool Insert(const Rect &rect);
 
 	/// Computes the ratio of used surface area to the total bin area.
 	double Occupancy() const;

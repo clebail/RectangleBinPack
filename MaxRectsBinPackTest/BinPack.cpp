@@ -60,6 +60,14 @@ int main(int argc, char **argv)
 		printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\">\n", binWidth, binHeight);
 
 	bin.Init(binWidth, binHeight);
+
+	Rect hole;
+	hole.x = 50;
+	hole.y = 50;
+	hole.width = 50;
+	hole.height = 50;
+	bin.Insert(hole);
+	printf("<rect style=\"fill:#00000;stroke:#000000;stroke-width:0.234704;stroke-opacity:1\" width=\"%d\" height=\"%d\" x=\"%d\" y=\"%d\" />\n", hole.width, hole.height, hole.x, hole.y);
 	
 	// Pack each rectangle (w_i, h_i) the user inputted on the command line.
 	for(int i = 2; i < nb_rect; i += 2)
@@ -71,7 +79,7 @@ int main(int argc, char **argv)
 			printf("Packing rectangle of size %dx%d: ", rectWidth, rectHeight);
 
 		// Perform the packing.
-		MaxRectsBinPack::FreeRectChoiceHeuristic heuristic = MaxRectsBinPack::RectBestShortSideFit; // This can be changed individually even for each rectangle packed.
+		MaxRectsBinPack::FreeRectChoiceHeuristic heuristic = MaxRectsBinPack::RectContactPointRule; // This can be changed individually even for each rectangle packed.
 		Rect packedRect = bin.Insert(rectWidth, rectHeight, heuristic);
 
 		// Test success or failure.
