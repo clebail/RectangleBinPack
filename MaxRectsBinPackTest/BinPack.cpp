@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 			if(mode == TEXT_MODE)
 				printf("Packed to (x,y)=(%d,%d), (w,h)=(%d,%d). Free space left: %.2f%%\n", packedRect.x, packedRect.y, packedRect.width, packedRect.height, 100.f - bin.Occupancy()*100.f);
 			else
-				printf("<rect style=\"fill:none;stroke:#000000;stroke-width:0.234704;stroke-opacity:1\" width=\"%d\" height=\"%d\" x=\"%d\" y=\"%d\" />\n", packedRect.width, packedRect.height,packedRect.x, packedRect.y);
+				printf("<rect style=\"fill:#fab1a0;stroke:#000000;stroke-width:0.234704;stroke-opacity:1\" width=\"%d\" height=\"%d\" x=\"%d\" y=\"%d\" />\n", packedRect.width, packedRect.height,packedRect.x, packedRect.y);
 		else
 			fprintf(stderr, "Failed! Could not find a proper position to pack this rectangle into. Skipping this one.\n");
 	}
