@@ -23,8 +23,8 @@ int main(int argc, char **argv)
 	MaxRectsBinPack bin;
 	enum { TEXT_MODE, SVG_MODE } mode = TEXT_MODE;
 	size_t optind;
-	int *rects = (int *)malloc(sizeof(int)*(argc - 1));
-	int nb_rect = 0;
+
+	std::vector<int> sizes;
 	std::vector<Rect> holes;
     for (optind = 1; optind < argc; optind++)
 	{
@@ -47,18 +47,21 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			rects[nb_rect] = atoi(argv[optind]);
-			nb_rect++;
+			sizes.push_back(atoi(argv[optind]));
 		}
 	}
 
-	if(nb_rect % 2 != 0)
+	if(sizes.size() % 2 != 0)
 	{
 		return showUsage();
 	}
 
-	int binWidth = rects[0];
-	int binHeight = rects[1];
+	int binWidth = sizes.at(0);
+	int binHeight = sizes.at(1);
+
+	sizes.erase(sizes.begin());
+	sizes.erase(sizes.begin());
+
 	if(mode == TEXT_MODE)
 		printf("Initializing bin to size %dx%d.\n", binWidth, binHeight);
 	else
@@ -73,11 +76,11 @@ int main(int argc, char **argv)
 	bin.Insert(holes);
 	
 	// Pack each rectangle (w_i, h_i) the user inputted on the command line.
-	for(int i = 2; i < nb_rect; i += 2)
+	for(int i = 0; i < sizes.size(); i += 2)
 	{
 		// Read next rectangle to pack.
-		int rectWidth = rects[i];
-		int rectHeight = rects[i+1];
+		int rectWidth = sizes.at(i);
+		int rectHeight = sizes.at(i + 1);
 		if(mode == TEXT_MODE)
 			printf("Packing rectangle of size %dx%d: ", rectWidth, rectHeight);
 
@@ -98,6 +101,4 @@ int main(int argc, char **argv)
 		printf("Done. All rectangles packed.\n");
 	else
 		printf("</svg>\n");
-
-	free(rects);
 }
