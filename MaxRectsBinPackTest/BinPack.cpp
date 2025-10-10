@@ -62,10 +62,10 @@ int main(int argc, char **argv)
 	bin.Init(binWidth, binHeight);
 
 	Rect hole;
-	hole.x = 50;
-	hole.y = 50;
-	hole.width = 50;
-	hole.height = 50;
+	hole.x = 30;
+	hole.y = 120;
+	hole.width = 90;
+	hole.height = 70;
 	bin.Insert(hole);
 	printf("<rect style=\"fill:#00000;stroke:#000000;stroke-width:0.234704;stroke-opacity:1\" width=\"%d\" height=\"%d\" x=\"%d\" y=\"%d\" />\n", hole.width, hole.height, hole.x, hole.y);
 	
