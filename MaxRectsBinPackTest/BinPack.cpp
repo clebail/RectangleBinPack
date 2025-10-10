@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 			printf("Packing rectangle of size %dx%d: ", rectWidth, rectHeight);
 
 		// Perform the packing.
-		MaxRectsBinPack::FreeRectChoiceHeuristic heuristic = MaxRectsBinPack::RectContactPointRule; // This can be changed individually even for each rectangle packed.
+		MaxRectsBinPack::FreeRectChoiceHeuristic heuristic = MaxRectsBinPack::RectBestShortSideFit; // This can be changed individually even for each rectangle packed.
 		Rect packedRect = bin.Insert(rectWidth, rectHeight, heuristic);
 
 		// Test success or failure.
