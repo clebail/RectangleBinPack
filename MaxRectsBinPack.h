@@ -53,7 +53,7 @@ public:
 	/// You can't excute this after the start off the packing
 	/// @param rect The rectangle to insert.
 	/// @return True if rectangle was insert
-	bool Insert(const Rect &rect);
+	bool Insert(std::vector<Rect> &rects);
 
 	/// Computes the ratio of used surface area to the total bin area.
 	double Occupancy() const;

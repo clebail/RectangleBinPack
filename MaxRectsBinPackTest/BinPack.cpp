@@ -7,6 +7,7 @@ int showUsage(void)
 	fprintf(stderr, "       options :\n");
 	fprintf(stderr, "       -t (default) to print result in text format\n");
 	fprintf(stderr, "       -s to print result in svg format\n");
+	fprintf(stderr, "       -o x y w h to place on hole on specified coords\n");
 	fprintf(stderr, "       where binWidth and binHeight define the size of the bin.\n");
 	fprintf(stderr, "       w_i is the width of the i'th rectangle to pack, and h_i the height.\n");
 	fprintf(stderr, "Example: MaxRectsBinPackTest -s 256 256 30 20 50 20 10 80 90 20\n");
@@ -24,6 +25,7 @@ int main(int argc, char **argv)
 	size_t optind;
 	int *rects = (int *)malloc(sizeof(int)*(argc - 1));
 	int nb_rect = 0;
+	std::vector<Rect> holes;
     for (optind = 1; optind < argc; optind++)
 	{
 		if(argv[optind][0] == '-')
@@ -35,6 +37,9 @@ int main(int argc, char **argv)
 					break;
 				case 's':
 					mode = SVG_MODE;
+					break;
+				case 'o':
+					holes.push_back({ atoi(argv[++optind]), atoi(argv[++optind]), atoi(argv[++optind]), atoi(argv[++optind]) });
 					break;
 				default:
 					return showUsage();
@@ -61,13 +66,11 @@ int main(int argc, char **argv)
 
 	bin.Init(binWidth, binHeight);
 
-	Rect hole;
-	hole.x = 30;
-	hole.y = 120;
-	hole.width = 90;
-	hole.height = 70;
-	bin.Insert(hole);
-	printf("<rect style=\"fill:#00000;stroke:#000000;stroke-width:0.234704;stroke-opacity:1\" width=\"%d\" height=\"%d\" x=\"%d\" y=\"%d\" />\n", hole.width, hole.height, hole.x, hole.y);
+	for(size_t i = 0; i < holes.size(); i++)
+	{
+		printf("<rect style=\"fill:#00000;stroke:#000000;stroke-width:0.234704;stroke-opacity:1\" width=\"%d\" height=\"%d\" x=\"%d\" y=\"%d\" />\n", holes[i].width, holes[i].height, holes[i].x, holes[i].y);
+	}
+	bin.Insert(holes);
 	
 	// Pack each rectangle (w_i, h_i) the user inputted on the command line.
 	for(int i = 2; i < nb_rect; i += 2)
