@@ -1,3 +1,5 @@
 bin
 *.so
 *.dylib
+*.o
+BinPackTest
