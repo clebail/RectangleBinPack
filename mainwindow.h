@@ -13,6 +13,11 @@ public:
     ~MainWindow();
 private:
     QSvgWidget *svgWidget;
+
+    QString process(void);
+private slots:
+    void on_txtLargeur_textChanged();
+    void on_txtHauteur_textChanged();
 };
 
 #endif // MAINWINDOW_H

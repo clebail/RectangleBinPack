@@ -1,4 +1,5 @@
 #include <QVBoxLayout>
+#include <QtDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "MaxRectsBinPack.h"
@@ -8,13 +9,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setupUi(this);
 
     svgWidget = new QSvgWidget(this);
-    svgWidget->load(QString("<svg width=\"150\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><rect x='10' y='10' width='100' height='100' /></svg>").toLocal8Bit());
-    // svgWidget->load(QString("/home/corentin/dev/RectangleBinPack/test.svg"));
 
-    QVBoxLayout * verticalLayout = new QVBoxLayout(centralWidget()); // make a layout to put the svgwidget it so it scales with the window
+    QVBoxLayout * verticalLayout = new QVBoxLayout(gbResultat); // make a layout to put the svgwidget it so it scales with the window
     verticalLayout->setContentsMargins(0, 0, 0, 0); // no borders
     verticalLayout->addWidget(svgWidget);// the widget to it
-    centralWidget()->setLayout(verticalLayout);
+    gbResultat->setLayout(verticalLayout);
 }
 
 MainWindow::~MainWindow()
@@ -22,3 +21,33 @@ MainWindow::~MainWindow()
     delete svgWidget;
 }
 
+ QString MainWindow::process(void)
+ {
+     using namespace rbp;
+     int width = txtLargeur->toPlainText().toInt();
+     int height = txtHauteur->toPlainText().toInt();
+     QString svg = "<svg width=\""+QString::number(width)+"\" height=\""+QString::number(height)+"\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\">";
+
+       svg += "<rect style=\"fill:#FFF;stroke:#FFF;stroke-width:0.1;stroke-opacity:1\" x=\"0\" y=\"0\" width=\""+QString::number(width)+"\" height=\""+QString::number(height)+"\" />";
+
+     // Create a bin to pack to, use the bin size from command line.
+     MaxRectsBinPack bin;
+
+     bin.Init(width, height);
+
+     svg += "</svg>";
+
+     return svg;
+ }
+
+ void MainWindow::on_txtLargeur_textChanged()
+ {
+     QString svg = process();
+     svgWidget->load(svg.toLocal8Bit());
+     qDebug() << "test" << svg;
+ }
+
+ void MainWindow::on_txtHauteur_textChanged()
+ {
+     svgWidget->load(process().toLocal8Bit());
+ }
