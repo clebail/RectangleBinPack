@@ -1,7 +1,6 @@
 #include <QVBoxLayout>
 #include <QtDebug>
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "MaxRectsBinPack.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -50,4 +49,22 @@ MainWindow::~MainWindow()
  void MainWindow::on_txtHauteur_textChanged()
  {
      svgWidget->load(process().toLocal8Bit());
+ }
+
+ void MainWindow::on_pbAddTrou_clicked(bool)
+ {
+    ItemWidget *iw = new ItemWidget(this);
+
+    trous.append(iw);
+
+    widgetTrous->layout()->addWidget(iw);
+ }
+
+ void MainWindow::on_pbAddPave_clicked(bool)
+ {
+    ItemWidget *iw = new ItemWidget(this);
+
+    paves.append(iw);
+
+    widgetPaves->layout()->addWidget(iw);
  }
