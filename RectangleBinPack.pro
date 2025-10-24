@@ -30,3 +30,6 @@ SOURCES += MaxRectsBinPack.cpp \
 
 FORMS += \
     mainwindow.ui
+
+RESOURCES += \
+    RectangleBinPack.qrc
