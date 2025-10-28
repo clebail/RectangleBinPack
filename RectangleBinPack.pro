@@ -21,18 +21,21 @@ CONFIG += c++11
 # Input
 HEADERS += MaxRectsBinPack.h \
            Rect.h \
-           itemwidget.h \
-           mainwindow.h
+           mainwindow.h \
+           pavewidget.h \
+           trouwidget.h
 SOURCES += MaxRectsBinPack.cpp \
            Rect.cpp \
 #           MaxRectsBinPackTest/BinPack.cpp \
-    itemwidget.cpp \
            main.cpp \
-           mainwindow.cpp
+           mainwindow.cpp \
+    pavewidget.cpp \
+    trouwidget.cpp
 
 FORMS += \
-    itemwidget.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    pavewidget.ui \
+    trouwidget.ui
 
 RESOURCES += \
     RectangleBinPack.qrc

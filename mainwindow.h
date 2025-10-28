@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include <QtSvg>
 #include "ui_mainwindow.h"
-#include "itemwidget.h"
+#include "pavewidget.h"
+#include "trouwidget.h"
 
 class MainWindow : public QMainWindow, private Ui::MainWindow
 {
@@ -14,15 +15,17 @@ public:
     ~MainWindow();
 private:
     QSvgWidget *svgWidget;
-    QList<ItemWidget *>trous;
-    QList<ItemWidget *>paves;
+    QList<TrouWidget *>trous;
+    QList<PaveWidget *>paves;
 
     QString process(void);
 private slots:
-    void on_txtLargeur_textChanged();
-    void on_txtHauteur_textChanged();
+    void on_leWidth_textChanged();
+    void on_leHeight_textChanged();
     void on_pbAddTrou_clicked(bool checked = false);
     void on_pbAddPave_clicked(bool checked = false);
+    void trouDeleted(TrouWidget *item);
+    void paveDeleted(PaveWidget *item);
 };
 
 #endif // MAINWINDOW_H
